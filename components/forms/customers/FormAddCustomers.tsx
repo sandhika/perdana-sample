@@ -1,14 +1,17 @@
 import { Button, Flex, Modal, Stack, Title } from "@mantine/core";
 import { FormCustomer} from "./FormCustomers";
 import {Customers} from "@prisma/client";
-import prisma from "@/db";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
+import { updateCustomer } from "@/db";
+
+
 
 export type FormAddCustomerRef = {
   open: () => void;
 };
+
 
 
 export const FormAddCustomer = forwardRef<FormAddCustomerRef>(function FormAddCustomer(
@@ -42,13 +45,13 @@ export const FormAddCustomer = forwardRef<FormAddCustomerRef>(function FormAddCu
       title={<Title order={4}>Add New Customer</Title>}
     >
       <form
-        onSubmit={formCust.onSubmit((values) => {
+        onSubmit={formCust.onSubmit(async (values) => {
           // Change Me:
           
           setIsLoading(true);
           
-
-          prisma.customers.create(values);
+          await updateCustomer(values);
+          
 
 
           setTimeout(() => {

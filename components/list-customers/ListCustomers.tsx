@@ -30,7 +30,7 @@ export default function ListCustomers(
             header: () => "Name",
             cell: (row: any) => (
               <>
-              <Text size="sm"> {row.username }</Text>
+              <Text size="sm"> {row.name }</Text>
               <Text size="sm"> {row.email }</Text>
               </>
             )
@@ -46,7 +46,7 @@ export default function ListCustomers(
             keyIndex: "createat",
             header: () => "Created At",
             cell: (row: any) => (
-              <Text size="sm"> { row.createat }</Text>
+              <Text size="sm"> { row.created_at }</Text>
             )
           },
           

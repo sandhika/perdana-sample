@@ -5,6 +5,7 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import prisma from "@/db";
+import dayjs from "dayjs";
 
 
 export type FormEditAssetRef = {
@@ -39,7 +40,7 @@ export const FormEditCustomer = forwardRef<FormEditCustomerRef>(function FormEdi
         id: item.id,
         cif: item.cif,
         birth_place: item.birth_place,
-        birth_date: item.birth_date,
+        birth_date: dayjs(item.birth_date).toDate(),
         gender: item.gender,
         email: item.email,
         phone: item.phone,
