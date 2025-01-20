@@ -1,14 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {Customers} from "@prisma/client";
+import {Transaction} from "@prisma/client";
 import prisma from "@/db";
 
 export default async function userHandler(
   req: NextApiRequest,
-  res: NextApiResponse<Customers>,
+  res: NextApiResponse<Transaction>,
 ) {
   const { query, method,body } = req;
   const id = parseInt(query.id as string, 10);
-  const name = query.name as string;
 
   switch (method) {
     case "GET":
@@ -17,7 +16,7 @@ export default async function userHandler(
       break;
     case "PUT":
       // Update or create data in your database
-      const result = await prisma.customers.update(
+      const result = await prisma.transaction.update(
         {
             where: {
               id,
@@ -29,7 +28,7 @@ export default async function userHandler(
       break;
     case "DELETE":
         // Update or create data in your database
-        const resultDel = await prisma.customers.delete(
+        const resultDel = await prisma.transaction.delete(
           {
               where: {
                 id,

@@ -4,7 +4,7 @@ import {Customers} from "@prisma/client";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
-import { updateCustomer } from "@/db";
+import { newCustomer } from "@/db";
 
 
 
@@ -50,7 +50,7 @@ export const FormAddCustomer = forwardRef<FormAddCustomerRef>(function FormAddCu
           
           setIsLoading(true);
           
-          await updateCustomer(values);
+          await newCustomer(values);
           
 
 

@@ -7,6 +7,7 @@ import { notifications } from "@mantine/notifications";
 import prisma from "@/db";
 import dayjs from "dayjs";
 
+import { updateCustomer } from "@/db";
 
 export type FormEditAssetRef = {
   open: (item: Customers) => void;
@@ -61,17 +62,18 @@ export const FormEditCustomer = forwardRef<FormEditCustomerRef>(function FormEdi
           // Change Me:
           console.log(values);
           setIsLoading(true);
-          setTimeout(() => {
+          setTimeout(async () => {
             setOpened(false);
             setIsLoading(false);
 
-            prisma.customers.update(values);
+            await updateCustomer(values);
 
 
             notifications.show({
               title: "Update Notification",
               message: "Customer successfully updated",
             });
+          
           }, 1000);
         })}
       >

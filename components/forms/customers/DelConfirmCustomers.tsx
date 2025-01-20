@@ -1,8 +1,9 @@
 import { Button, Flex, Modal, Stack, Text, Title } from "@mantine/core";
 import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
 import { notifications } from "@mantine/notifications";
-import prisma from "@/db";
+import prisma,{delCustomer} from "@/db";
 import {Customers} from "@prisma/client";
+
 
 
 export type DelConfirmCustomerRef = {
@@ -15,15 +16,15 @@ export const DelConfirmCustomer = forwardRef<DelConfirmCustomerRef>(
     const [selected, setSelected] = useState<Customers | null>(null);
     const [isLoading, setLoading] = useState(false);
     
-    const onConfirm = useCallback(() => {
+    const onConfirm = useCallback(async () => {
       // Change Me:
       console.log(selected);
       setLoading(true);
-      setTimeout(() => {
+      setTimeout(async () => {
         setSelected(null);
         setOpened(false);
         setLoading(false);
-        prisma.customers.delete({id:selected?.id});
+        await delCustomer({id:selected.id});
         notifications.show({
           title: "Delete Notification",
           message: "Customer successfully deleted",

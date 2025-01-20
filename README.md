@@ -1,7 +1,6 @@
-# Mantine Next.js template
+# Sample Project for BANK PERDANA
 
-This is a template for [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/).
-If you want to use app router instead, see [next-app-template](https://github.com/mantinedev/next-app-template).
+This is a Sample Project for BANK PERDANA.
 
 ## Features
 
