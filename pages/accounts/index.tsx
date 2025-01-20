@@ -2,7 +2,7 @@
 import { DelConfirmCustomer,DelConfirmCustomerRef } from '@/components/forms/customers/DelConfirmCustomers';
 import { FormAddCustomer,FormAddCustomerRef } from '@/components/forms/customers/FormAddCustomers';
 import { FormEditCustomer,FormEditAssetRef } from '@/components/forms/customers/FormEditCustomers';
-import ListCustomers from '@/components/list-customers/ListCustomers';
+import ListAccounts from '@/components/list-accounts/ListAccounts';
 
 
 import { Paper } from '@mantine/core';
@@ -22,7 +22,7 @@ export default  function AccountPage() {
   
   return (
       <Paper p="xl">
-       <ListCustomers  
+       <ListAccounts  
                       data={dataCust}
                       onAdd={() => formAddRef.current?.open()}
                       onEdit={(data) => formEditRef.current?.open(data)}

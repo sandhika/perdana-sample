@@ -1,5 +1,5 @@
 'use server'
-import { Accounts, Customers, PrismaClient, Transaction } from '@prisma/client'
+import { Prisma, Accounts, Customers, PrismaClient, Transaction } from '@prisma/client'
 
 const prismaClientSingleton = () => {
   return new PrismaClient()
@@ -20,6 +20,23 @@ export async function getAllCustomer() {
   const result = await  prisma.customers.findMany({});
   return result;
 }
+
+export async function searchCustomer(data : Prisma.CustomersWhereInput) {
+  const urlString = `/api/customers?where=${JSON.stringify(data)}`;
+
+  await fetch(urlString, {
+    method: 'GET',
+    // headers: {
+    //   Authorization: `Bearer ${arg}`
+    // }
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    
+  
+  })
+}
+
 
 export async function newCustomer(data : Customers) {
   await fetch("/api/customers", {

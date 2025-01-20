@@ -8,10 +8,17 @@ export default async function getAllCustomer(
   _req: NextApiRequest,
   res: NextApiResponse<Customers[]>,
 ) {
+  const { query } = _req;
+
   // Get data from your database
   if (_req.method === 'GET') {
-    const result = await prisma.customers.findMany();
-    res.status(200).json(result);
+    if(!query?.where){
+      const result = await prisma.customers.findMany();
+      res.status(200).json(result);
+    }else if(query?.where){
+      const result = await prisma.customers.findMany(query?.where);
+      res.status(200).json(result);
+    }
   }else if(_req.method ==='POST') {
     const data = _req.body;
     const result = await prisma.customers.create({
