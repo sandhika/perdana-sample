@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id            Int            @id @default(autoincrement())
+  name          String        
+  email         String?        
+  password      String? 
+
+  role_id       Int
+  role          Role @relation(fields: [role_id], references: [id])
+  
+
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+}
+
+model Role {
+  id            Int            @id @default(autoincrement())
+  name          String        
+  description   String
+
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  user           User[]
+}
+
+model Customers {
+  id            Int            @id @default(autoincrement())
+  cif           String         @unique  
+  name          String         
+  birth_place   String        
+  birth_date    DateTime       
+  gender        String
+  email         String       
+  phone         String        
+  address       String
+  
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  accounts  Accounts[]
+}
+
+model Accounts{
+  id            Int            @id @default(autoincrement())
+  account_no    String          
+  name          String         @unique 
+  account_type  String         
+  balance       Float
+  
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  
+  customer_id       Int
+  customers          Customers @relation(fields: [customer_id], references: [id])
+
+  transaction_fr              Transaction[] @relation(name: "transaccounts_fr")
+  transactions_to              Transaction[] @relation(name: "transaccounts_to")
+
+
+}
+
+model Transaction {
+  id                    Int            @id @default(autoincrement())
+  transaction_type      Int 
+  balance               Float
+  transaction_date      DateTime? 
+  notes                 String         
+  fraccount_id          Int
+  toaccount_id          Int
+
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+  
+  accounts_fr              Accounts[] @relation(name: "transaccounts_fr")
+  accounts_to              Accounts[] @relation(name: "transaccounts_to")
+}
+
+model Logs {
+  id            Int            @id @default(autoincrement())
+  event_type    String          
+  description   String          
+  log_at        DateTime      @default(now())
+}
